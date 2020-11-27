@@ -35,11 +35,21 @@ ggplot(data = stepsPerDay, aes(stepsPerDay$total)) +
 The mean total number of steps taken per day is `r as.integer(meanStepsPerDay)` and the median total number of steps taken per day is `r as.integer(medianStepsPerDay)`.
 
 ## What is the average daily activity pattern?
-```{r, echo = TRUE}
+```{r, echo = TRUE, fig.height = 3}
+myDataPlot <- myData %>% 
+    filter(steps != "NA") %>% 
+    group_by(interval) %>% 
+    mutate(mean = mean(steps)) %>% 
+    select(interval, mean) %>% 
+    unique()
 
+intervalMax <- myDataPlot$interval[which(myDataPlot$mean == max(myDataPlot$mean))]
+
+ggplot(data = myDataPlot, aes(x = interval, y = mean)) + 
+  geom_line()
 ```
 
-
+The 5-minute interval `r intervalMax`, on average across all the days in the dataset, contains the maximum number of steps.
 
 ## Imputing missing values
 

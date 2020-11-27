@@ -37,8 +37,23 @@ The mean total number of steps taken per day is 10766 and the median total numbe
 
 ## What is the average daily activity pattern?
 
+```r
+myDataPlot <- myData %>% 
+    filter(steps != "NA") %>% 
+    group_by(interval) %>% 
+    mutate(mean = mean(steps)) %>% 
+    select(interval, mean) %>% 
+    unique()
 
+intervalMax <- myDataPlot$interval[which(myDataPlot$mean == max(myDataPlot$mean))]
 
+ggplot(data = myDataPlot, aes(x = interval, y = mean)) + 
+  geom_line()
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+The 5-minute interval 835, on average across all the days in the dataset, contains the maximum number of steps.
 
 ## Imputing missing values
 
