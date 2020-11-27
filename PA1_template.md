@@ -5,19 +5,18 @@ output:
     keep_md: true
 ---
 
-```{r, echo = FALSE, results = 'hide', message = FALSE}
-library(dplyr)
-library(ggplot2)
-```
+
 
 ## Loading and preprocessing the data
-```{r, echo = TRUE}
+
+```r
 unzip("activity.zip")
 myData <- read.csv("activity.csv")
 ```
 
 ## What is mean total number of steps taken per day?
-```{r, echo = TRUE, warning = FALSE, fig.height = 3}
+
+```r
 stepsPerDay <- myData %>% 
     group_by(date) %>% 
     mutate(total = sum(steps)) %>% 
@@ -32,12 +31,12 @@ ggplot(data = stepsPerDay, aes(stepsPerDay$total)) +
          x = "Total number of steps") 
 ```
 
-The mean total number of steps taken per day is `r as.integer(meanStepsPerDay)` and the median total number of steps taken per day is `r as.integer(medianStepsPerDay)`.
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+The mean total number of steps taken per day is 10766 and the median total number of steps taken per day is 10765.
 
 ## What is the average daily activity pattern?
-```{r, echo = TRUE}
 
-```
 
 
 
